@@ -9,22 +9,25 @@ export default function Account() {
   const [isSignup, setIsSignup] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { loginUser, registerUser, currentUser } = useStateContext();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const redirect = location.search ? location.search.split('=')[1] : '/'
+  
+  useEffect(() => {
+    if (currentUser.token) {
+      navigate(redirect);
+    }
+  }, [navigate, currentUser.token, redirect]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (currentUser.token) {
-      navigate("/");
-    }
-  }, [navigate, currentUser.token]);
-
   const switchMode = () => {
     setIsSignup((previsSignup) => !previsSignup);
-  };
+  }
+
   const onSubmit = async ({ name, email, password }, e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -41,7 +44,7 @@ export default function Account() {
         <p className="texting mb-0">Footshop</p>
         <h1 className="text-danger display-3">SHOP</h1>
       </div>
-      <div style={{ border: "1px solid red" }} className="mt-5 mb-5" />
+      <hr style={{ border: "1px solid black" }} />
       <h1 className="heading text-center">
         {isSignup ? "Get started" : "Log in"}
       </h1>

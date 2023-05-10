@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/deviant-art-2000');
+/* @import url('https://fonts.cdnfonts.com/css/deviant-art-2000');
 @import url('https://fonts.cdnfonts.com/css/larsseit-font-family');
 * {
   text-decoration: none !important;
@@ -117,9 +117,154 @@ input::placeholder {
     z-index: 3;
     transition: 0.3s ease-in-out;
   }
+} */
+
+@import url('https://fonts.cdnfonts.com/css/deviant-art-2000');
+@import url('https://fonts.cdnfonts.com/css/larsseit-font-family');
+* {
+  text-decoration: none !important;
+  scroll-behavior: smooth;
+  font-family: 'Deviant Art 2000', sans-serif;
 }
 
+a {
+  color: inherit !important;
+}
+input,
+span,
+p,
+a {
+  font-family: 'Larsseit', sans-serif !important;
+}
+input {
+  width: 100%;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+}
+input:focus {
+  outline: none;
+}
+input::placeholder {
+  font-size: 1em;
+}
+.hover-link:hover {
+  border-bottom: 3px solid black;
+  width: fit-content;
+  transition: 0.3s ease-in-out;
+}
 
+.scrollbody {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbody::-webkit-scrollbar {
+  display: none;
+}
+.cursor {
+  cursor: pointer;
+}
+.bgModal {
+  background-color: #eee7e1;
+}
+
+.heading {
+  font-size: clamp(1.9rem, 2.5vw, 2.6rem) !important;
+}
+.error {
+  font-size: clamp(2.875em, 3.4116em + 10.6963vw, 25em) !important;
+}
+
+.texting {
+  font-size: clamp(1.5rem, 2.5vw, 1.8rem) !important;
+}
+
+.logo-width {
+  width: 180px;
+}
+
+.img-container {
+  width: 100%;
+  height: 100%;
+}
+.img-contain {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.both-arrow {
+  position: absolute;
+  top: 50%;
+  font-size: 1.8rem;
+  color: rgb(240, 98, 98);
+  z-index: 4;
+  cursor: pointer;
+  user-select: none;
+}
+
+.right-arrow {
+  right: 0px;
+}
+
+.left-arrow {
+  left: 0px;
+}
+
+.bgImage {
+  background-image: url('https://res.cloudinary.com/ceenobi/image/upload/v1681584281/estore/0314dba8-8ce3-4f64-9187-419dceb65f9a-icecream.png_wtaume.webp');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+.footer {
+  min-height: calc(100vh - 50px);
+}
+ 
+@media (min-width: 992px) {
+  .logo-width {
+    width: 25%;
+  }
+  .img-contain {
+    width: 750px;
+    height: 500px;
+  }
+  .right-arrow {
+    right: -100px;
+  }
+
+  .left-arrow {
+    left: -100px;
+  }
+  .both-arrow {
+    font-size: 3rem;
+  }
+
+  .hover-me {
+    opacity: 0;
+  }
+  .hover-me:hover {
+    opacity: 1;
+    z-index: 3;
+    transition: 0.3s ease-in-out;
+  }
+  .resizeA {
+    width: 400px;
+  }
+  .resize {
+    width: 350px;
+  }
+  .form-resize {
+    width: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+.bgImage {
+    background-position: left;
+}
+}
 
 
 

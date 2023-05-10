@@ -4,25 +4,25 @@ import { getUserOrder } from '../api/api'
 import { Button, Image } from 'react-bootstrap'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
-
 export default function Order() {
   const [orders, setOrders] = useState([])
   const { currentUser } = useStateContext()
   const location = useLocation()
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${currentUser.token}`,
-    },
-  }
   useEffect(() => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser.token}`,
+      },
+    }
     getUserOrder(config)
       .then((res) => {
         setOrders(res.data)
       })
       .catch((error) => console.log(error))
-  }, [])
+  }, [currentUser.token])
+
   return (
     <>
       {location.pathname === '/customer/orders' ? (
@@ -56,7 +56,7 @@ export default function Order() {
                     </p>
                   </div>
                   <Link to={`/customer/orders/${order._id}`}>
-                    <Button variant='danger' className='rounded-0'>
+                    <Button variant='danger' className='rounded-0 mb-4'>
                       SEE DETAILS
                     </Button>
                   </Link>

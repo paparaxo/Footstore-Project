@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getOrderDetail } from '../api/api'
 import { useStateContext } from '../config/contex'
@@ -12,19 +12,20 @@ export default function Orderdetail() {
   const [isPay, setNoPay] = useState('')
   const { currentUser } = useStateContext()
   const navigate = useNavigate()
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${currentUser.token}`,
-    },
-  }
+  
   useEffect(() => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${currentUser.token}`,
+      },
+    }
     getOrderDetail(id, config)
       .then((res) => {
         setOrderId(res.data)
       })
       .catch((error) => console.log(error))
-  }, [id])
+  }, [currentUser.token, id])
 
   const track = orderId.status
 
@@ -38,7 +39,7 @@ export default function Orderdetail() {
     <div className='border p-2'>
       <div className='mt-3 mb-3 d-flex justify-content-between align-items-center border-bottom'>
         <h1 className='fs-6'>ORDER DETAILS</h1>
-        <h1 className='fs-6 cursor' onClick={() => navigate(-1)}>
+        <h1 className='fs-6 cursor' onClick={() => navigate('/customer/orders')}>
           BACK
         </h1>
       </div>

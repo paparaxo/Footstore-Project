@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getAllProducts, getFeaturedProducts } from "../api/api";
 import ImageSlider from "../components/ImageSlider";
 import Productcard from "../components/Productcard";
+import Spinner from "../utils/spinner";
 
 export default function Home() {
   const [hero, setHero] = useState([]);
@@ -12,14 +13,14 @@ export default function Home() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    window.document.title = "Home"
     getFeaturedProducts()
       .then((res) => {
         setHero(res.data);
       })
       .catch((error) => {
-        console.log(error);
         setError(error);
-      });
+      })
   }, []);
 
   useEffect(() => {
@@ -29,23 +30,22 @@ export default function Home() {
         setSandals(res.data);
       })
       .catch((error) => {
-        console.log(error);
         setError(error);
       });
   }, []);
 
-  console.log("hero", hero);
-  const heroProduct = hero.filter(
+  const heroProduct = hero?.filter(
     (product) => product.title === "Black Chuck 70 Hi Sneakers"
   );
-
-  const casualPicks = casual.filter(
+  const casualPicks = casual?.filter(
     (product) =>
       product.category === "Sneakers" &&
       product.title !== "Black Chuck 70 Hi Sneakers"
   );
 
   const slipons = sandals?.filter((product) => product.category === "Sandals");
+
+  if (!hero | !casual | !sandals) return <Spinner />
 
   return (
     <Container className="mt-5 py-5">
@@ -87,26 +87,26 @@ export default function Home() {
         className="text-danger text-end display-3"
         style={{ marginTop: "5rem" }}
       >
-        Casual Picks
+          Casual picks
       </h1>
-      <div style={{ border: "1px solid red" }} className="mb-5" />
-      <ImageSlider casualPicks={casualPicks} />
+      <hr className='mb-5' style={{ border: '1px solid red' }} />
+      <ImageSlider slides={casualPicks} />
       <h1
-        className="text-danger text-end display-3"
-        style={{ marginTop: "5rem" }}
+        className='text-danger text-end display-3'
+        style={{ marginTop: '5rem' }}
       >
         Slip on
       </h1>
-      <div style={{ border: "1px solid red" }} className="mb-5"/>
-      <p className="small text-danger mb-0">COMFY</p>
-      <p className="texting">Feel chic on these, smooth comfort all day</p>
-      <Row className="w-100 mx-auto">
-        {slipons.map((product) => (
-          <Col md={6} key={product._id}>
+      <hr className='mb-5' style={{ border: '1px solid red' }} />
+      <p className='small text-danger mb-0'>COMFY</p>
+      <p className='texting'>Feel chic on these, smooth comfort all day.</p>
+      <Row className='w-100 mx-auto'>
+        {slipons.slice(0, 4).map((product) => (
+          <Col md={6} lg={4} key={product._id}>
             <Productcard {...product} />
           </Col>
         ))}
       </Row>
     </Container>
-  );
+  )
 }
